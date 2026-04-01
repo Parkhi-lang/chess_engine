@@ -1,8 +1,7 @@
 class game_state():
     def __init__(self):
-        self.board =
-        [
-            ["bR","bN","bB","bQ","bk","bB","bN","bR"],
+        self.board=[
+            ["bR","bN","bB","bQ","bK","bB","bN","bR"],
             ["bP","bP","bP","bP","bP","bP","bP","bP"],
             ["--","--","--","--","--","--","--","--"],
             ["--","--","--","--","--","--","--","--"],
@@ -13,12 +12,18 @@ class game_state():
         ]
         self.white_to_move =True
         self.move_log =[]
-        def make_move(self,move):
-            self.board[move.start_row][move.start_col] = "--"
-            self.board[move.end_row][move.end_col] = move.piece_moved
-            self.move_log.append(move)
+    def make_move(self,move):
+        self.board[move.start_row][move.start_col] = "--"
+        self.board[move.end_row][move.end_col] = move.piece_moved
+        self.move_log.append(move)
+        self.white_to_move = not self.white_to_move
+    '''undo move'''
+    def undo_move(self):
+        if len(self.move_log)!=0:
+            move = self.move_log.pop()
+            self.board[move.start_row][move.start_col]=move.piece_moved
+            self.board[move.end_row][move.end_col]= move.piece_captured
             self.white_to_move = not self.white_to_move
-
 class Move():
     ranks_to_rows = {"1":7, "2":6, "3":5, "4":4,"5":3, "6":2,"7":1,"8":0}
     Rows_to_ranks ={v:k for k,v in ranks_to_rows.items()}
@@ -30,7 +35,7 @@ class Move():
         self.piece_moved = board[self.start_row][self.start_col]
         self.piece_captured = board[self.end_row][self.end_col]
     def get_chess_notation(self):
-        return self.get_rank_files(self.start_row,self.start_col)+self.get_rank_files(self.end_row,elf.end_col)
+        return self.get_rank_files(self.start_row,self.start_col)+self.get_rank_files(self.end_row,self.end_col)
     
 
 
