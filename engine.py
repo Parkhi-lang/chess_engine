@@ -17,7 +17,7 @@ def load_images():
               "bP", "bR", "bN", "bB", "bQ", "bK"]
     for piece in pieces:
         IMAGES[piece] = p.transform.scale(
-            p.image.load("chess_engine/pieces-basic-png/" + piece + ".png"),
+            p.image.load("pieces-basic-png/" + piece + ".png"),
             (SQ_SIZE, SQ_SIZE)
         )
 

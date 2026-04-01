@@ -24,6 +24,21 @@ class game_state():
             self.board[move.start_row][move.start_col]=move.piece_moved
             self.board[move.end_row][move.end_col]= move.piece_captured
             self.white_to_move = not self.white_to_move
+    def get_valid_moves(self):
+        pass
+    def get_all_posible_moves(self):
+        moves = []
+        for r in range(len(self.board)):
+            for c in range(len(self.board[r])):
+                turn = self.board[r][c][0]
+                if (turn == "w" and self.white_to_move) or (turn == "b" and not self.white_to_move):
+                    piece = self.board[r][c][1]
+                    if piece == "P":
+                        self.get_pawn(r,c,moves)
+                    elif piece == "R":
+                        self.get_rook(r,c,moves)
+    '''get all pawn moves'''
+                                   
 class Move():
     ranks_to_rows = {"1":7, "2":6, "3":5, "4":4,"5":3, "6":2,"7":1,"8":0}
     Rows_to_ranks ={v:k for k,v in ranks_to_rows.items()}
